@@ -1,0 +1,19 @@
+{
+  "name": "2255009-nodejs-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mich-cook/linkedin-learning-workalongs.git"
+  },
+  "author": "mich-cook",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mich-cook/linkedin-learning-workalongs/issues"
+  },
+  "homepage": "https://github.com/mich-cook/linkedin-learning-workalongs#readme"
+}
