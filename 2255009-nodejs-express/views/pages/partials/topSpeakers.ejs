@@ -1,0 +1,7 @@
+<article class="speakersList">
+  <p>OK</p>
+  <% topSpeakers.forEach(function(speaker) {%>
+    <p><%=speaker.title%></p>
+    <p><a href="/speakers/<%=speaker.shortname%>"><%=speaker.name%></a></p>
+  <%}) %>
+</article>

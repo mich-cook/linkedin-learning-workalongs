@@ -7,9 +7,12 @@ const router = express.Router();
 
 module.exports = args => {
 
-  router.get('/', (req, res) => {
+  const { speakersService } = args;
+
+  router.get('/', async (req, res) => {
+    const topSpeakers = await speakersService.getList();
     // template-specific vars
-    return res.render('layout', { "title": "Welcome", "template": "index" });
+    return res.render('layout', { "title": "Welcome", "template": "index", topSpeakers });
   });
 
   router.use('/speakers', speakersRoute(args));
