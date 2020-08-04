@@ -8,7 +8,13 @@
 <%})%>
   </ul>
 </div>
+<%} else if (locals.successMessage) {%>%>
+<div class="alert alert-success">
+  <%= successMessage %>
+</div>
 <%}%>
+
+
 
 <form method="post" action="/feedback">
   <label>Name: <input name="name"></label>
