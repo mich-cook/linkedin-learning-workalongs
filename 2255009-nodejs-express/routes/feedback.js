@@ -9,7 +9,8 @@ module.exports = args => {
   router.get('/', async (req, res, next) => {
     try {
       const feedback = await feedbackService.getList();
-      return res.json(feedback);
+      // template-specific vars
+      return res.render('layout', { "title": "Feedback", "template": "feedback", feedback });
     } catch(err) {
       return next(err);
     }
