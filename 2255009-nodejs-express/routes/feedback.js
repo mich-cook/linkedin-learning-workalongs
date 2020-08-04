@@ -2,10 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
-module.exports = () => {
+module.exports = args => {
 
-  router.get('/', (req, res) => {
-    return res.send(`Feedback placeholder`);
+  const { feedbackService } = args;
+
+  router.get('/', async (req, res) => {
+    const feedback = await feedbackService.getList();
+    return res.json(feedback);
   });
 
   router.post('/', (req, res) => {
