@@ -11,8 +11,9 @@ module.exports = args => {
     return res.render('layout', { "title": "Speakers", "template": "speakers", speakers });
   });
 
-  router.get('/:name', (req, res) => {
-    return res.send(`Speaker page for ${req.params.name}`);
+  router.get('/:name', async (req, res) => {
+    const speaker = await speakersService.getSpeaker(req.params.name);
+    return res.render('layout', { "title": "Speakers", "template": "speaker", speaker });
   });
 
   return router;
