@@ -19,10 +19,22 @@ app.use(cookieSession({
     keys: ['hdhfhwjefkvksk3kk88d8cc', 'fh2h329f9fhn23r0fbfaal3ly']  // just random
 }));
 
+app.locals.site = 'nodejs/express demo';
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 
 app.use(express.static(path.join(__dirname, './static')));
+
+app.use(async (req, res, next) => {
+  try {
+    const names = await speakersService.getNames();
+    res.locals.speakerNames = names;  // global template var
+    return next();
+  } catch(err) {
+    return next(err);
+  }
+});
 
 app.use('/', routes({ feedbackService, speakersService }));
 

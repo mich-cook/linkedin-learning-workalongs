@@ -8,6 +8,7 @@ const router = express.Router();
 module.exports = args => {
 
   router.get('/', (req, res) => {
+    // template-specific vars
     return res.render('layout', { "title": "Welcome", "template": "index" });
   });
 
