@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieSession = require('cookie-session');
 const createError = require('http-errors');
+const bodyParser = require('body-parser');
 
 const FeedbackService = require('./tainted-code-to-remove-or-implement/services/FeedbackService');
 const SpeakersService = require('./tainted-code-to-remove-or-implement/services/SpeakerService');
@@ -19,6 +20,8 @@ app.use(cookieSession({
     name: 'session',
     keys: ['hdhfhwjefkvksk3kk88d8cc', 'fh2h329f9fhn23r0fbfaal3ly']  // just random
 }));
+
+app.use(bodyParser.urlencoded({ "extended": true }));
 
 app.locals.site = 'nodejs/express demo';
 

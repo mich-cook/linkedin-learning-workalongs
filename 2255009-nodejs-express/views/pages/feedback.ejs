@@ -1,4 +1,25 @@
 <p>Send feedback</p>
+
+<%if (locals.errors) {%>
+<div class="alert alert-danger">
+  <ul>
+<%errors.forEach(function(error){%>
+    <li><%=error.msg%></li>
+<%})%>
+  </ul>
+</div>
+<%}%>
+
+<form method="post" action="/feedback">
+  <label>Name: <input name="name"></label>
+  <label>Email: <input name="email"></label>
+  <label>Title: <input name="title"></label>
+  <label>Message: <input name="message"></label>
+  <button type="submit">Send Feedback</button>
+</form>
+
+
+<p>Feedback Received</p>
 <%feedback.forEach(function(item) {%>
 <p><%=item.title%></p>
 <P><%=item.name%></p>
