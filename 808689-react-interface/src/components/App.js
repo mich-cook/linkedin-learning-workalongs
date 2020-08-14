@@ -5,6 +5,8 @@ import AddAppointments from './AddAppointments.js';
 import SearchAppointments from './SearchAppointments.js';
 import ListAppointments from './ListAppointments.js';
 
+import { without } from 'lodash';
+
 export default class App extends Component {
 
   constructor() {
@@ -12,6 +14,13 @@ export default class App extends Component {
     this.state = {
       appointments: []
     };
+    this.deleteAppointment = this.deleteAppointment.bind(this);
+  }
+
+  deleteAppointment(appointment) {
+    let appointments = this.state.appointments;
+    appointments = without(appointments, appointment);
+    this.setState({ appointments });
   }
 
   componentDidMount() {
@@ -34,7 +43,7 @@ export default class App extends Component {
       <div id="petratings">
         <AddAppointments />
         <SearchAppointments />
-        <ListAppointments appointments={this.state.appointments} />
+        <ListAppointments appointments={this.state.appointments} deleteAppointment={this.deleteAppointment} />
       </div>
     );
   }

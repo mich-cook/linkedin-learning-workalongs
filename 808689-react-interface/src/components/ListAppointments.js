@@ -12,7 +12,7 @@ export default class ListAppointments extends Component {
           <p>Owner: {appointment.ownerName}</p>
           <p>Date: <Moment date={appointment.aptDate} parse="YYYY-MM-DD hh:mm" format="MMM D h:mma" /></p>
           <p>Notes: {appointment.aptNotes}</p>
-          <FaTimes />
+          <button className="btn-danger" onClick={() => this.props.deleteAppointment(appointment)}><FaTimes /></button>
         </li>
       ))};
       </ul>
