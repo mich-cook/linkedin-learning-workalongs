@@ -18,7 +18,14 @@ export default class App extends Component {
     fetch('./tmpdata-appointments.json')
       .then(response => response.json())
       .then(result => {
-        this.setState({ "appointments": result });
+
+        const appointments = result.map((appointment, id) => {
+          appointment.id = id;  // since the data doesn't have a good one
+          return appointment;
+        });
+
+        this.setState({ appointments });
+
       });
   }
 
@@ -27,7 +34,7 @@ export default class App extends Component {
       <div id="petratings">
         <AddAppointments />
         <SearchAppointments />
-        <ListAppointments />
+        <ListAppointments appointments={this.state.appointments} />
       </div>
     );
   }
