@@ -1,18 +1,26 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../css/App.css';
 
 import AddAppointments from './AddAppointments.js';
 import SearchAppointments from './SearchAppointments.js';
 import ListAppointments from './ListAppointments.js';
 
-function App() {
-  return (
-    <div id="petratings">
-      <AddAppointments />
-      <SearchAppointments />
-      <ListAppointments />
-    </div>
-  );
-}
+export default class App extends Component {
 
-export default App;
+  constructor() {
+    super();
+    this.state = {
+      appointments: []
+    };
+  }
+
+  render() {
+    return (
+      <div id="petratings">
+        <AddAppointments />
+        <SearchAppointments />
+        <ListAppointments />
+      </div>
+    );
+  }
+}
