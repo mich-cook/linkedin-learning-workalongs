@@ -1,12 +1,16 @@
 import React from 'react';
 import '../css/App.css';
 
+import AddAppointments from './AddAppointments.js';
+import SearchAppointments from './SearchAppointments.js';
+import ListAppointments from './ListAppointments.js';
+
 function App() {
   return (
     <div id="petratings">
-      <button>Add Appointments</button>
-      <button>Search Appointments</button>
-      <button>List Appointments</button>
+      <AddAppointments />
+      <SearchAppointments />
+      <ListAppointments />
     </div>
   );
 }
