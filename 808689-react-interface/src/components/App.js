@@ -5,7 +5,7 @@ import AddAppointments from './AddAppointments.js';
 import SearchAppointments from './SearchAppointments.js';
 import ListAppointments from './ListAppointments.js';
 
-import { without } from 'lodash';
+import { without, findIndex } from 'lodash';
 
 export default class App extends Component {
 
@@ -22,6 +22,7 @@ export default class App extends Component {
     this.searchAppointments = this.searchAppointments.bind(this);
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
+    this.updateInfo = this.updateInfo.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
   }
 
@@ -33,6 +34,18 @@ export default class App extends Component {
 
   searchAppointments(query) {
     this.setState({ filter: query });
+  }
+
+  updateInfo(name, value, id) {
+    let appointments = this.state.appointments;
+    let index = findIndex(this.state.appointments, {
+      id: id
+    });
+
+    appointments[index][name] = value;
+
+    this.setState({ appointments });
+
   }
 
   addAppointment(appointment) {
@@ -100,7 +113,7 @@ export default class App extends Component {
       <div id="petratings">
         <AddAppointments formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} addAppointment={this.addAppointment} />
         <SearchAppointments orderBy={this.state.orderBy} orderDir={this.state.orderDir} changeOrder={this.changeOrder} searchAppointments={this.searchAppointments} />
-        <ListAppointments appointments={filteredAppointments} deleteAppointment={this.deleteAppointment} />
+        <ListAppointments appointments={filteredAppointments} deleteAppointment={this.deleteAppointment} updateInfo={this.updateInfo} />
       </div>
     );
   }
