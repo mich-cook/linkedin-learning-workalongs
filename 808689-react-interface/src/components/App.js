@@ -14,10 +14,12 @@ export default class App extends Component {
     this.state = {
       "appointments": [],
       "formDisplay": false,
+      "filter": "",
       "orderBy": "petName",
       "orderDir": "asc"
     };
     this.addAppointment = this.addAppointment.bind(this);
+    this.searchAppointments = this.searchAppointments.bind(this);
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
@@ -27,6 +29,10 @@ export default class App extends Component {
     this.setState({
       formDisplay: !this.state.formDisplay
     });
+  }
+
+  searchAppointments(query) {
+    this.setState({ filter: query });
   }
 
   addAppointment(appointment) {
@@ -76,18 +82,24 @@ export default class App extends Component {
       order = -1;
     }
 
-    filteredAppointments.sort((a,b) => {
+    filteredAppointments = filteredAppointments.sort((a,b) => {
       if (a[this.state.orderBy].toLowerCase() < b[this.state.orderBy].toLowerCase()) {
         return -1 * order;
       } else {
         return 1 * order;
       }
+    }).filter(appointment => {
+      return (
+        appointment['petName'].toLowerCase().includes(this.state.filter.toLowerCase()) ||
+        appointment['ownerName'].toLowerCase().includes(this.state.filter.toLowerCase()) ||
+        appointment['aptNotes'].toLowerCase().includes(this.state.filter.toLowerCase())
+      );
     });
 
     return (
       <div id="petratings">
-        <AddAppointments formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} addAppointment={this.addAppointment}/>
-        <SearchAppointments orderBy={this.state.orderBy} orderDir={this.state.orderDir} changeOrder={this.changeOrder}/>
+        <AddAppointments formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} addAppointment={this.addAppointment} />
+        <SearchAppointments orderBy={this.state.orderBy} orderDir={this.state.orderDir} changeOrder={this.changeOrder} searchAppointments={this.searchAppointments} />
         <ListAppointments appointments={filteredAppointments} deleteAppointment={this.deleteAppointment} />
       </div>
     );

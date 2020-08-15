@@ -4,7 +4,7 @@ export default class SearchAppointments extends Component {
   render() {
     return (
       <div>
-        <input type="text" name="keywords" />
+        <input type="text" name="keywords" onChange={ e => this.props.searchAppointments(e.target.value)} />
         <button type="button" className="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort By:</button>
 
         <button
