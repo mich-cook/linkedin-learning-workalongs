@@ -14,7 +14,7 @@ export default class ListAppointments extends Component {
           <p>Notes: {appointment.aptNotes}</p>
           <button className="btn-danger" onClick={() => this.props.deleteAppointment(appointment)}><FaTimes /></button>
         </li>
-      ))};
+      ))}
       </ul>
     );
   }
