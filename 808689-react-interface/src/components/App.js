@@ -15,6 +15,7 @@ export default class App extends Component {
       appointments: [],
       formDisplay: false
     };
+    this.addAppointment = this.addAppointment.bind(this);
     this.deleteAppointment = this.deleteAppointment.bind(this);
     this.toggleForm = this.toggleForm.bind(this);
   }
@@ -25,6 +26,14 @@ export default class App extends Component {
     });
   }
 
+  addAppointment(appointment) {
+    let appointments = this.state.appointments;
+    appointment.aptNotes = appointment.notes;
+    appointment.aptDate = appointment.date;
+    appointment.id = new Date().getTime();  // to improve later
+    appointments.unshift(appointment);
+    this.setState({ appointments });
+  }
 
   deleteAppointment(appointment) {
     let appointments = this.state.appointments;
@@ -50,7 +59,7 @@ export default class App extends Component {
   render() {
     return (
       <div id="petratings">
-        <AddAppointments formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} />
+        <AddAppointments formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} addAppointment={this.addAppointment}/>
         <SearchAppointments />
         <ListAppointments appointments={this.state.appointments} deleteAppointment={this.deleteAppointment} />
       </div>
