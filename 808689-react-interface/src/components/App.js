@@ -12,10 +12,19 @@ export default class App extends Component {
   constructor() {
     super();
     this.state = {
-      appointments: []
+      appointments: [],
+      formDisplay: false
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
+    this.toggleForm = this.toggleForm.bind(this);
   }
+
+  toggleForm() {
+    this.setState({
+      formDisplay: !this.state.formDisplay
+    });
+  }
+
 
   deleteAppointment(appointment) {
     let appointments = this.state.appointments;
@@ -41,7 +50,7 @@ export default class App extends Component {
   render() {
     return (
       <div id="petratings">
-        <AddAppointments />
+        <AddAppointments formDisplay={this.state.formDisplay} toggleForm={this.toggleForm} />
         <SearchAppointments />
         <ListAppointments appointments={this.state.appointments} deleteAppointment={this.deleteAppointment} />
       </div>
