@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from '@reach/router';
 
 export default class Home extends Component {
 
@@ -11,11 +12,11 @@ export default class Home extends Component {
         <h1 style={{ "fontSize": 3 + "rem", "inlineStyle": true }}>Meeting Log</h1>
         <ul>
           {userName === null && (<>
-          <li><a href="/register">Register</a></li>
-          <li><a href="/login">Log In</a></li>
+          <li><Link to="/register">Register</Link></li>
+          <li><Link to="/login">Log In</Link></li>
           </>)}
           {userName !== null && (<>
-          <li><a href="/meetings">Meetings</a></li>
+          <li><Link to="/meetings">Meetings</Link></li>
           </>)}
         </ul>
       </div>

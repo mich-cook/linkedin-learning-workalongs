@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from '@reach/router';
 import { FaUsers } from 'react-icons/fa';
 
 export default class Navigation extends Component {
@@ -9,15 +10,15 @@ export default class Navigation extends Component {
 
     return (
       <nav>
-        <p><a href="/"><FaUsers />Meeting Log</a></p>
+        <p><Link to="/"><FaUsers />Meeting Log</Link></p>
         <div>
           <ul>
             { username && (
-            <li><a href="/meetings">Meetings</a></li>)}
+            <li><Link to="/meetings">Meetings</Link></li>)}
             { !username && (<>
-            <li><a href="/login">Log In</a></li>
-            <li><a href="/register">Register</a></li></>)}
-            { username && (<li><a href="/login">Log Out</a></li>)}
+            <li><Link to="/login">Log In</Link></li>
+            <li><Link to="/register">Register</Link></li></>)}
+            { username && (<li><Link to="/login">Log Out</Link></li>)}
           </ul>
         </div>
       </nav>
