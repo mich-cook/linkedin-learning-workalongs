@@ -47,7 +47,10 @@ export default class Register extends Component {
     firebase.auth().createUserWithEmailAndPassword(
       regInfo.email,
       regInfo.password
-    ).catch(error => {
+    ).then(() => {
+      this.props.registerUser(regInfo.username);
+    })
+    .catch(error => {
       if (error.message !== null) {
         this.setState({ "errorMessage": error.message });
       } else {
