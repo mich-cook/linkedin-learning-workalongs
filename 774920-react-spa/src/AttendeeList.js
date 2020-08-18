@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GoTrashcan, GoStar } from 'react-icons/go';
+import { GoTrashcan, GoMail, GoStar } from 'react-icons/go';
 
 import firebase from './Firebase.js';
 
@@ -39,6 +39,7 @@ export default class AttendeeList extends Component {
         {admin && (
         <span className="btn-group">
           <button className={'btn ' + (attendee.star?'btn-info':'btn-outline-secondary')} title="Star User" onClick={ e => this.toggleStar(e, attendee.star, this.props.meetingID, attendee.attendeeID)}><GoStar /></button>
+          <a href={`mailto:${attendee.attendeeEmail}`} className="btn"><GoMail /></a>
           <button title="Delete Attendee" onClick={ e => this.deleteAttendee(e, this.props.meetingID, attendee.attendeeID)}><GoTrashcan /></button>
         </span>
         )}
