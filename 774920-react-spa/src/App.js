@@ -23,12 +23,14 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    const ref = firebase.database().ref('user');
-
-    // when we see a new value
-    ref.on('value', snapshot => {
-      let FirebaseUser = snapshot.val();
-      this.setState({ "user": FirebaseUser });
+    firebase.auth().onAuthStateChanged(firebaseUser => {
+      if (firebaseUser) {
+        this.setState({
+          "user": firebaseUser,
+          "username": firebaseUser.displayName,
+          "userID": firebaseUser.uid
+        });
+      }
     });
   }
 
