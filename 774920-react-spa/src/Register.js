@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
+
+import firebase from './Firebase.js';
+
 import FormError from './FormError.js';
+
 
 export default class Register extends Component {
 
@@ -15,6 +19,7 @@ export default class Register extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
@@ -30,9 +35,30 @@ export default class Register extends Component {
     });
   }
 
+  handleSubmit(e) {
+    let regInfo = {
+      "username": this.state.username,
+      "email": this.state.email,
+      "password": this.state.password
+    };
+
+    e.preventDefault();
+
+    firebase.auth().createUserWithEmailAndPassword(
+      regInfo.email,
+      regInfo.password
+    ).catch(error => {
+      if (error.message !== null) {
+        this.setState({ "errorMessage": error.message });
+      } else {
+        this.setState({ "errorMessage": null });
+      }
+    })
+  }
+
   render() {
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <p>Register</p>
         { this.state.errorMessage !== null ? (
           <FormError message={this.state.errorMessage} />
