@@ -49,11 +49,24 @@ export default class App extends Component {
     });
   }
 
+  logoutUser = e => {
+    e.preventDefault();
+    this.setState({
+      "user": null,
+      "username": null,
+      "userID": null
+    });
+
+    firebase.auth().signOut().then(() => {
+      navigate('/login');
+    })
+  }
+
   render() {
     return (
       <div>
-        <Navigation userName={this.state.user} />
-        {this.state.user !== null && <Welcome userName={this.state.username} /> }
+        <Navigation userName={this.state.user} logoutUser={this.logoutUser} />
+        {this.state.user !== null && <Welcome userName={this.state.username} logoutUser={this.logoutUser} /> }
         <Router>
           <Login path="/login" />
           <Home path="/" userName={this.state.username} />
