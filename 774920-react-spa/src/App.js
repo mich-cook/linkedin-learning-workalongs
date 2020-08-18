@@ -18,7 +18,9 @@ export default class App extends Component {
     this.state = {
       "user": null,
       "username": null,
-      "userID": null
+      "userID": null,
+      "meetings": [],
+      "meetingCount": 0
     };
   }
 
@@ -29,6 +31,30 @@ export default class App extends Component {
           "user": firebaseUser,
           "username": firebaseUser.displayName,
           "userID": firebaseUser.uid
+        });
+
+        const meetingsRef = firebase.database().ref(`meetings/${firebaseUser.uid}`);
+
+        meetingsRef.on('value', snapshot => {
+          let meetings = snapshot.val();
+          let meetingsList = [];
+
+          for (let meeting in meetings) {
+            meetingsList.push({
+              meetingID: meeting,
+              meetingName: meetings[meeting].meetingName
+            });
+          }
+
+          this.setState({ "meetings": meetingsList, "meetingCount": meetingsList.length });
+
+        });
+
+      } else {
+        this.setState({
+          "user": null,
+          "username": null,
+          "userID": null
         });
       }
     });
@@ -62,6 +88,11 @@ export default class App extends Component {
     })
   }
 
+  addMeeting = meetingName => {
+    const dbRef = firebase.database().ref(`meetings/${this.state.user.uid}`);
+    dbRef.push({ "meetingName": meetingName });
+  }
+
   render() {
     return (
       <div>
@@ -70,7 +101,7 @@ export default class App extends Component {
         <Router>
           <Login path="/login" />
           <Home path="/" userName={this.state.username} />
-          <Meetings path="/meetings" />
+          <Meetings path="/meetings" meetings={this.state.meetings} userID={this.state.userID} addMeeting={this.addMeeting} />
           <Register path="/register" registerUser={this.registerUser}/>
         </Router>
       </div>
