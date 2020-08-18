@@ -6,8 +6,11 @@ export default class Attendees extends Component {
   constructor() {
     super();
     this.state = {
-      attendeeNames: []
+      "attendeeNames": [],
+      "keywords": ""
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
@@ -30,10 +33,28 @@ export default class Attendees extends Component {
     });
   }
 
+  handleChange(e) {
+    const itemName = e.target.name;
+    const itemValue = e.target.value;
+
+    this.setState({ [itemName]: itemValue });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+  }
+
   render() {
+
+    const filter = item => item.attendeeName.toLowerCase().match(this.state.keywords.toLowerCase()) && true;
+    const filteredAttendees = this.state.attendeeNames.filter(filter);
+
     return (<>
       <h1>Attendees</h1>
-      <AttendeeList userID={this.props.userID} adminUser={this.props.adminUser} attendees={this.state.attendeeNames} meetingID={this.props.meetingID} />
+      <form onSubmit={this.handleSubmit}>
+        <input type="text" name="keywords" value={this.state.keywords} placeholder="Search Attendees" className="" onChange={this.handleChange}/>
+      </form>
+      <AttendeeList userID={this.props.userID} adminUser={this.props.adminUser} attendees={filteredAttendees} meetingID={this.props.meetingID} />
     </>);
   }
 
