@@ -17,7 +17,7 @@ export default class AttendeeList extends Component {
     if (star === undefined) {
       dbRef.set(true);
     } else {
-      dbRef(!star);
+      dbRef.set(!star);
     }
   }
 
