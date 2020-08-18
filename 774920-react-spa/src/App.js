@@ -11,6 +11,7 @@ import Login from './Login.js';
 import Meetings from './Meetings.js';
 import Register from './Register.js';
 import Checkin from './Checkin.js';
+import Attendees from './Attendees.js';
 
 export default class App extends Component {
 
@@ -103,6 +104,7 @@ export default class App extends Component {
           <Login path="/login" />
           <Home path="/" userName={this.state.username} />
           <Meetings path="/meetings" meetings={this.state.meetings} userID={this.state.userID} addMeeting={this.addMeeting} />
+          <Attendees path="/attendees/:userID/:meetingID" adminUser={this.state.userID} />
           <Register path="/register" registerUser={this.registerUser}/>
           <Checkin path="/checkin/:userID/:meetingID" />
         </Router>
