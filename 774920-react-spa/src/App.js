@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router } from '@reach/router';
+import firebase from './Firebase.js';
 
 import './App.css';
 
@@ -17,6 +18,16 @@ export default class App extends Component {
     this.state = {
       "user": null
     };
+  }
+
+  componentDidMount() {
+    const ref = firebase.database().ref('user');
+
+    // when we see a new value
+    ref.on('value', snapshot => {
+      let FirebaseUser = snapshot.val();
+      this.setState({ "user": FirebaseUser });
+    });
   }
 
   render() {
