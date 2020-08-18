@@ -29,7 +29,8 @@ export default class Checkin extends Component {
     const dbRef = firebase.database().ref(`meetings/${this.props.userID}/${this.props.meetingID}/attendees`);
     dbRef.push({
       "attendeeName": this.state.displayName,
-      "attendeeEmail": this.state.email
+      "attendeeEmail": this.state.email,
+      "star": false
     });
 
     navigate(`/attendees/${this.props.userID}/${this.props.meetingID}`);

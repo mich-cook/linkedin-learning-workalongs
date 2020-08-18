@@ -19,7 +19,8 @@ export default class Attendees extends Component {
         attendeeList.push({
           "attendeeID": attendee,
           "attendeeName":  attendees[attendee].attendeeName,
-          "attendeeEmail": attendees[attendee].attendeeEmail
+          "attendeeEmail": attendees[attendee].attendeeEmail,
+          "star": attendees[attendee].star
         });
       }
 
