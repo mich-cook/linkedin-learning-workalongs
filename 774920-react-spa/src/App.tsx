@@ -21,7 +21,7 @@ type State = Readonly<{
   "meetingCount": number
 }>;
 
-class App extends Component<any, State> {
+export default class App extends Component<any, State> {
 
   readonly state: State = {
     "user": null,
@@ -120,5 +120,3 @@ class App extends Component<any, State> {
     );
   }
 }
-
-export default App;
