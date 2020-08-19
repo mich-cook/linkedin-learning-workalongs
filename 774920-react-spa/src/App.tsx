@@ -13,22 +13,28 @@ import Register from './Register.js';
 import Checkin from './Checkin.js';
 import Attendees from './Attendees.js';
 
-export default class App extends Component {
+type State = Readonly<{
+  "user": any,   // eventually, we need a better definiton for User. null|{} fails below.
+  "username": null|string,
+  "userID": null|string,
+  "meetings": Array<{}>,
+  "meetingCount": number
+}>;
 
-  constructor() {
-    super();
-    this.state = {
-      "user": null,
-      "username": null,
-      "userID": null,
-      "meetings": [],
-      "meetingCount": 0
-    };
-  }
+class App extends Component<any, State> {
+
+  readonly state: State = {
+    "user": null,
+    "username": null,
+    "userID": null,
+    "meetings": [],
+    "meetingCount": 0
+  };
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(firebaseUser => {
       if (firebaseUser) {
+
         this.setState({
           "user": firebaseUser,
           "username": firebaseUser.displayName,
@@ -62,23 +68,24 @@ export default class App extends Component {
     });
   }
 
-  registerUser = username => {
+  registerUser = (username:string) => {
     firebase.auth().onAuthStateChanged(firebaseUser => {
-      firebaseUser.updateProfile({
-        "displayName": username
-      }).then(() => {
-        this.setState({
-          "user": firebaseUser,
-          "username": firebaseUser.displayName,
-          "userID": firebaseUser.uid
-        })
-      });
-      navigate('/meetings');  // reach: goto /meetings
+      if (firebaseUser) {
+        firebaseUser.updateProfile({
+          "displayName": username
+        }).then(() => {
+          this.setState({
+            "user": firebaseUser,
+            "username": firebaseUser.displayName,
+            "userID": firebaseUser.uid
+          })
+        });
+        navigate('/meetings');  // reach: goto /meetings
+      }
     });
   }
 
-  logoutUser = e => {
-    e.preventDefault();
+  logoutUser = () => {
     this.setState({
       "user": null,
       "username": null,
@@ -87,10 +94,11 @@ export default class App extends Component {
 
     firebase.auth().signOut().then(() => {
       navigate('/login');
-    })
+    });
+
   }
 
-  addMeeting = meetingName => {
+  addMeeting = (meetingName:string) => {
     const dbRef = firebase.database().ref(`meetings/${this.state.user.uid}`);
     dbRef.push({ "meetingName": meetingName });
   }
@@ -105,10 +113,12 @@ export default class App extends Component {
           <Home path="/" userName={this.state.username} />
           <Meetings path="/meetings" meetings={this.state.meetings} userID={this.state.userID} addMeeting={this.addMeeting} />
           <Attendees path="/attendees/:userID/:meetingID" adminUser={this.state.userID} />
-          <Register path="/register" registerUser={this.registerUser}/>
+          <Register path="/register" />{/* registerUser={this.registerUser}/> */}
           <Checkin path="/checkin/:userID/:meetingID" />
         </Router>
       </div>
     );
   }
 }
+
+export default App;
