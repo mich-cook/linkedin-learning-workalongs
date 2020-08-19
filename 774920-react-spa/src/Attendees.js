@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FaUndo, FaRandom } from 'react-icons/fa';
 import firebase from './Firebase.js';
-import AttendeeList from './AttendeeList.js';
+import AttendeeList from './AttendeeList';
 
 export default class Attendees extends Component {
   constructor() {
